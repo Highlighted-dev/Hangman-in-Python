@@ -7,7 +7,6 @@ word = words[randint(0, len(words) - 1)]
 
 # Changing letters to "_", so player will be able to see the length of the word, but not actually the word.
 hangmanWord = "_" * len(word)
-print(hangmanWord)
 
 
 # With this function program will draw a part of stickman. Higher number (more mistakes) = more parts
@@ -23,15 +22,24 @@ def draw_hangman(i,word):
     }[i]
 
 
+# Creating two variables: numberOfMistakes will display us how many wrong letter have been entered,
+# playerLetters will display the letters that player entered
 numberOfMistakes = 0
-playerLetters = []
-while "_" in list(hangmanWord):
+playerLetters = ['']
+
+while True:
+    if "_" in list(hangmanWord):
+        print(hangmanWord)
+    else:
+        print(f"Congratulations, you won! The word was {word}")
+        break
     didPlayerGuessedTheLetter = False
     i = 0
     hangmanWord = list(hangmanWord)
-    playerLetter = input("Guess the letter: ").lower()
+    print("Letters, that you entered:"+" ".join(playerLetters))
+    playerLetter = input("Enter the letter: ").lower()
     if playerLetter in playerLetters:
-        print("You guessed that letter before!\n")
+        print("You entered that letter before!\n")
         continue
     else:
         playerLetters.append(playerLetter)
@@ -43,9 +51,9 @@ while "_" in list(hangmanWord):
         i += 1
     if not didPlayerGuessedTheLetter:
         numberOfMistakes += 1
-        print(draw_hangman(numberOfMistakes,word))
         if numberOfMistakes == 7:
             break
+    print(draw_hangman(numberOfMistakes, word))
 
     hangmanWord = "".join(hangmanWord)
-    print(hangmanWord)
+
