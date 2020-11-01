@@ -24,18 +24,24 @@ def draw_hangman(i,word):
 
 
 numberOfMistakes = 0
+playerLetters = []
 while "_" in list(hangmanWord):
-    didHeSheGuessedTheLetter = False
+    didPlayerGuessedTheLetter = False
     i = 0
     hangmanWord = list(hangmanWord)
-    guessedLetter = input("Guess the letter: ").lower()
+    playerLetter = input("Guess the letter: ").lower()
+    if playerLetter in playerLetters:
+        print("You guessed that letter before!\n")
+        continue
+    else:
+        playerLetters.append(playerLetter)
     print("")
     for x in word:
-        if x == guessedLetter:
+        if x == playerLetter:
             hangmanWord[i] = x
-            didHeSheGuessedTheLetter = True
+            didPlayerGuessedTheLetter = True
         i += 1
-    if not didHeSheGuessedTheLetter:
+    if not didPlayerGuessedTheLetter:
         numberOfMistakes += 1
         print(draw_hangman(numberOfMistakes,word))
         if numberOfMistakes == 7:
