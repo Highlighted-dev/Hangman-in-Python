@@ -28,14 +28,22 @@ def draw_hangman(i,word):
 numberOfMistakes = 0
 playerLetters = ['']
 
+# Our main loop: 1. The program will check if there's any "_" in the word - if not, that means that player won.
+# 2. We are changing variable type to list so program will be able to change letters in word
+# 3. The program will display letters that player have entered. Next the program will ask to enter a letter
+# 4. If player have entered the letter before, program will display the text "You entered that letter before!"...
+#  ... otherwise the program will add this letter to a list named playerLetters
+# 5. The program will check if the letter that player have entered is in the word. If no - program will add 1 to...
+# ... number of mistakes. Otherwise the program will change the "_" in hangmanWord to a letter
+# 6. The function draw_hangman will draw a hangman that depends of numberOfMistakes.
+# 7. And now we will change back the hangmanWord variable from list to string.
 while True:
     if "_" in list(hangmanWord):
         print(hangmanWord)
     else:
         print(f"Congratulations, you won! The word was {word}")
         break
-    didPlayerGuessedTheLetter = False
-    i = 0
+
     hangmanWord = list(hangmanWord)
     print("Letters, that you entered:"+" ".join(playerLetters))
     playerLetter = input("Enter the letter: ").lower()
@@ -45,6 +53,8 @@ while True:
     else:
         playerLetters.append(playerLetter)
     print("")
+    didPlayerGuessedTheLetter = False
+    i = 0
     for x in word:
         if x == playerLetter:
             hangmanWord[i] = x
