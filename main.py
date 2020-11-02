@@ -1,12 +1,15 @@
 from random import randint
 
-# Getting random word from list
-words = ["apple", 'carrot', 'strawberry', 'blueberry', 'banana', 'orange', 'pineapple', 'cherry', 'grapefruit',
-         'lemon', 'mango', 'pear', 'raspberry', 'watermelon']
+# Getting random word from file words.txt
+f = open("words.txt","r")
+words = f.readlines()
+
 word = words[randint(0, len(words) - 1)]
 
+f.close()
+print("Category: fruits.")
 # Changing letters to "_", so player will be able to see the length of the word, but not actually the word.
-hangmanWord = "_" * len(word)
+hangmanWord = "_" * (len(word)-1)
 
 
 # With this function program will draw a part of stickman. Higher number (more mistakes) = more parts
@@ -19,7 +22,7 @@ def draw_hangman(i,word):
         4: 'Hangman:\n o \n-|- \n',
         5: 'Hangman:\n o \n-|-\n/ \n',
         6: 'Hangman:\n o \n-|-\n/ \\ \n',
-        7: f'Hangman:\n x \n-|-\n/ \\ \nYou lost :(. The word was "{word}"'
+        7: f'Hangman:\n x \n-|-\n/ \\ \nYou lost :(. The word was {word}'
     }[i]
 
 
@@ -49,6 +52,7 @@ while True:
     playerLetter = input("Enter the letter: ").lower()
     if playerLetter in playerLetters:
         print("You entered that letter before!\n")
+        hangmanWord = "".join(hangmanWord)
         continue
     else:
         playerLetters.append(playerLetter)
@@ -63,6 +67,7 @@ while True:
     if not didPlayerGuessedTheLetter:
         numberOfMistakes += 1
         if numberOfMistakes == 7:
+            print(draw_hangman(numberOfMistakes, word))
             break
     print(draw_hangman(numberOfMistakes, word))
 
