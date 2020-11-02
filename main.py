@@ -12,6 +12,7 @@ hangmanWord = "_" * len(word)
 # With this function program will draw a part of stickman. Higher number (more mistakes) = more parts
 def draw_hangman(i,word):
     return {
+        0: 'Hangman:\n ',
         1: 'Hangman:\n o \n',
         2: 'Hangman:\n o \n | \n',
         3: 'Hangman:\n o \n-| \n',
